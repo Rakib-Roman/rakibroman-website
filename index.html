@@ -401,6 +401,7 @@ footer a:hover{color:var(--cream)}
       <form class="vault-form" id="vaultForm" novalidate>
         <label for="v-email" id="vaultLabel">Where should I send it?</label>
         <input id="v-email" type="email" placeholder="you@brand.com" autocomplete="email">
+        <input type="text" id="v-hp" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px">
         <button class="pill" type="submit">Send</button>
         <span class="ok" id="vaultOk" role="status">Sent. Check your inbox.</span>
       </form>
@@ -434,6 +435,7 @@ footer a:hover{color:var(--cream)}
           </div>
           <label for="f-budget">Monthly ad budget<select id="f-budget"><option>Under $1,000</option><option selected>$1,000 – $5,000</option><option>$5,000 – $20,000</option><option>$20,000+</option></select></label>
           <label for="f-msg">Your goal<textarea id="f-msg" rows="3" placeholder="e.g. Get cost per lead under $20"></textarea></label>
+          <input type="text" id="f-hp" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px">
           <button class="pill" type="submit" style="justify-self:start">Send and get a free audit</button>
           <span class="ok" id="leadOk" role="status">Thanks. I'll reply within 24 hours at hello@rakibroman.com.</span>
         </form>
@@ -551,7 +553,21 @@ footer a:hover{color:var(--cream)}
     document.getElementById('vaultLabel').textContent='Where should I send "'+d.dataset.item+'"?';
     document.getElementById('v-email').focus();
   }});
-  vf.onsubmit=function(e){e.preventDefault();var v=document.getElementById('v-email');if(!/\S+@\S+\.\S+/.test(v.value)){v.focus();return;}document.getElementById('vaultOk').classList.add('on');};
+  /* forms → FormSubmit → owner's Gmail */
+  var FORM_ENDPOINT='https://formsubmit.co/ajax/rakibroman21@gmail.com';
+  function send(data,okEl,btn,okText){
+    var label=btn.textContent;btn.disabled=true;btn.textContent='Sending…';okEl.classList.remove('on');
+    data._template='table';data._captcha='false';data._url=location.href;
+    return fetch(FORM_ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(data)})
+      .then(function(r){return r.json().then(function(j){if(!r.ok||String(j.success)==='false')throw new Error(j.message||'Send failed');});})
+      .then(function(){okEl.textContent=okText;okEl.classList.add('on');try{window.dataLayer=window.dataLayer||[];dataLayer.push({event:'generate_lead',form:data._subject});if(window.fbq)fbq('track','Lead');}catch(e){}return true;})
+      .catch(function(){okEl.textContent='Could not send. Please email hello@rakibroman.com directly.';okEl.classList.add('on');return false;})
+      .finally(function(){btn.disabled=false;btn.textContent=label;});
+  }
+  vf.onsubmit=function(e){e.preventDefault();var v=document.getElementById('v-email');if(!/\S+@\S+\.\S+/.test(v.value)){v.focus();return;}
+    if(document.getElementById('v-hp').value)return;
+    var item=(document.getElementById('vaultLabel').textContent.match(/"(.+)"/)||[,'Vault resource'])[1];
+    send({_subject:'Vault request: '+item,email:v.value,resource:item},document.getElementById('vaultOk'),vf.querySelector('button[type=submit]'),'Got it. I\'ll send "'+item+'" to your inbox soon.').then(function(ok){if(ok)v.value='';});};
 
   /* contact greeting from the visitor's own clock and time zone */
   var h=new Date().getHours();
@@ -559,7 +575,11 @@ footer a:hover{color:var(--cream)}
   try{var tz=Intl.DateTimeFormat().resolvedOptions().timeZone||'';var city=tz.split('/').pop().replace(/_/g,' ');if(city)document.getElementById('place').textContent=city;}catch(e){}
   var lead=document.getElementById('lead');
   document.getElementById('startBtn').onclick=function(){lead.classList.add('on');document.getElementById('f-name').focus();};
-  lead.onsubmit=function(e){e.preventDefault();var n=document.getElementById('f-name'),m=document.getElementById('f-email');if(!n.value.trim()){n.focus();return;}if(!/\S+@\S+\.\S+/.test(m.value)){m.focus();return;}document.getElementById('leadOk').classList.add('on');};
+  lead.onsubmit=function(e){e.preventDefault();var n=document.getElementById('f-name'),m=document.getElementById('f-email');if(!n.value.trim()){n.focus();return;}if(!/\S+@\S+\.\S+/.test(m.value)){m.focus();return;}
+    if(document.getElementById('f-hp').value)return;
+    var svc=[].filter.call(lead.querySelectorAll('.chips input'),function(c){return c.checked}).map(function(c){return lead.querySelector('label[for='+c.id+']').textContent}).join(', ');
+    send({_subject:'New project lead: '+n.value.trim(),_replyto:m.value,name:n.value.trim(),email:m.value,website:document.getElementById('f-site').value,services:svc||'Not selected',monthly_ad_budget:document.getElementById('f-budget').value,goal:document.getElementById('f-msg').value},
+      document.getElementById('leadOk'),lead.querySelector('button[type=submit]'),'Thanks, '+n.value.trim().split(' ')[0]+'. I\'ll reply within 24 hours.').then(function(ok){if(ok)lead.reset();});};
 
   /* cursor */
   var cur=document.querySelector('.cursor');
