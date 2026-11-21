@@ -148,11 +148,6 @@ img,svg,canvas{display:block;max-width:100%}
 #say h1{font-size:clamp(52px,9.4vw,150px)}
 #say p{font-family:var(--serif);font-style:italic;font-size:clamp(22px,2.4vw,34px);color:var(--accent);margin-top:28px}
 
-/* 2 showreel */
-#say{--h:180vh}
-.reelbox{width:min(1200px,92vw);aspect-ratio:16/9;border-radius:24px;overflow:hidden;box-shadow:0 40px 120px rgba(0,0,0,.6),0 0 0 1px rgba(245,241,232,.08);transform:scale(calc(.86 + var(--p,0)*.18));transition:transform .1s linear;background:#000}
-.reelvid{width:100%;height:100%;object-fit:cover;display:block}
-@media (max-width:700px){.reelbox{border-radius:16px}}
 /* 3 light curtain */
 #light canvas{position:absolute;inset:0;width:100%;height:100%}
 #light .over{position:relative;text-align:center;padding:0 6vw;mix-blend-mode:normal}
@@ -361,11 +356,12 @@ footer a:hover{color:var(--cream)}
     </div>
   </section>
 
-  <!-- 2 · SHOWREEL VIDEO -->
+  <!-- 2 · STATEMENT -->
   <section class="scene" id="say">
     <div class="stage">
-      <div class="reelbox">
-        <video class="reelvid" src="hero-reel.mp4" poster="hero-reel-poster.jpg" autoplay muted loop playsinline preload="metadata" aria-label="Showreel: I stop thumbs. Story, cut, scale. Video ads by Rakib Roman"></video>
+      <div class="line">
+        <h1 class="groovy">I build brands<br>that sell</h1>
+        <p>story first, cut sharp, scaled with data.</p>
       </div>
     </div>
   </section>
