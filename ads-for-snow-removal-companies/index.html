@@ -21,6 +21,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <meta property="og:image" content="https://rakibroman.com/og.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#06080b">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Fraunces:opsz,wght,SOFT,WONK@9..144,600..900,0..100,0..1&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -162,6 +166,17 @@ footer a:hover{color:var(--accent)}
   section{padding:72px 0}
 }
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+.logo .lt{display:inline-block;animation:lt-in .7s cubic-bezier(.2,.9,.3,1.4) both,lt-wave 7s ease-in-out infinite;animation-delay:calc(1s + var(--i)*80ms),calc(3s + var(--i)*90ms)}
+.logo .dot{color:#F26C4F;display:inline-block;animation:lt-in .7s cubic-bezier(.2,.9,.3,1.4) both,dot-pop 7s ease-in-out infinite;animation-delay:1.45s,3.5s}
+.logo:hover .lt{animation:lt-hop .5s ease both;animation-delay:calc(var(--i)*50ms)}
+@keyframes lt-in{from{opacity:0;transform:translateY(-.8em) rotate(-12deg)}to{opacity:1;transform:none}}
+@keyframes lt-wave{0%,8%,100%{transform:none}4%{transform:translateY(-.22em)}}
+@keyframes lt-hop{50%{transform:translateY(-.25em) rotate(-6deg)}}
+@keyframes dot-pop{0%,10%,100%{transform:none}5%{transform:scale(1.8);filter:drop-shadow(0 0 6px rgba(242,108,79,.9))}}
+.cta-call,.btn.primary{background:linear-gradient(90deg,#F26C4F,#FF9466,#E9476A,#FF7A4D,#F26C4F)!important;background-size:300% 100%!important;animation:cta-flow 5s linear infinite}
+.cta-call:hover,.btn.primary:hover{animation-duration:1.6s}
+@keyframes cta-flow{from{background-position:0% 50%}to{background-position:300% 50%}}
+@media (prefers-reduced-motion:reduce){.logo .lt,.logo .dot,.cta-call,.btn.primary{animation:none!important}}
 </style>
 </head>
 <body>
@@ -174,7 +189,7 @@ footer a:hover{color:var(--accent)}
 <header>
   <div class="wrap">
     <nav aria-label="Main">
-      <a class="logo" href="/">ROMAN<i>.</i></a>
+      <a class="logo" href="/" aria-label="Rakib Roman home"><span class="lt" style="--i:0">R</span><span class="lt" style="--i:1">O</span><span class="lt" style="--i:2">M</span><span class="lt" style="--i:3">A</span><span class="lt" style="--i:4">N</span><span class="dot">.</span></a>
       <a class="btn primary" href="https://calendar.google.com/calendar/appointments/schedules/AcZssZ10Mi1H9epubZRMdXI0sblYjD7VobuTcaRJnacYdAAHItwXSMPSRf7RNJ_CG5tDgmvj1FH93PRf" target="_blank" rel="noopener"><span class="long">Book a Strategy Call</span><span class="short">Book a Call</span> →</a>
     </nav>
   </div>

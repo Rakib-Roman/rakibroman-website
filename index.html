@@ -25,6 +25,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <meta name="twitter:image" content="https://rakibroman.com/og.jpg">
 <meta name="theme-color" content="#050505">
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Person","@id":"https://rakibroman.com/#person","name":"Rakib Roman","alternateName":"Md Rakibul Islam Roman","url":"https://rakibroman.com/","image":"https://rakibroman.com/roman.webp","jobTitle":"Performance Media Buyer and Video Ad Creator","worksFor":{"@type":"Organization","name":"TownDevs"},"address":{"@type":"PostalAddress","addressLocality":"Khulna","addressCountry":"BD"},"sameAs":["https://www.linkedin.com/in/rakib-roman","https://www.facebook.com/RakibRoman.MediaBuyer","https://www.youtube.com/@RakibRomanmarketer","https://github.com/Rakib-Roman","https://www.upwork.com/freelancers/~01ea3d7b9b17e6bf6c"]},{"@type":"ProfessionalService","name":"Rakib Roman","url":"https://rakibroman.com/","email":"hello@rakibroman.com","founder":{"@id":"https://rakibroman.com/#person"},"areaServed":"Worldwide","serviceType":["Brand and story building","Video ad editing","Meta Ads management","Google Ads management"]}]}</script>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,100..900,0..100,0..1;1,9..144,100..900,0..100,0..1&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&family=Permanent+Marker&display=swap" rel="stylesheet">
@@ -296,6 +300,17 @@ footer a:hover{color:var(--cream)}
   .card{position:relative;opacity:1;transform:none;margin-bottom:60px}
   #svc .stack{height:auto}
 }
+.logo .lt{display:inline-block;animation:lt-in .7s cubic-bezier(.2,.9,.3,1.4) both,lt-wave 7s ease-in-out infinite;animation-delay:calc(1s + var(--i)*80ms),calc(3s + var(--i)*90ms)}
+.logo .dot{color:#F26C4F;display:inline-block;animation:lt-in .7s cubic-bezier(.2,.9,.3,1.4) both,dot-pop 7s ease-in-out infinite;animation-delay:1.45s,3.5s}
+.logo:hover .lt{animation:lt-hop .5s ease both;animation-delay:calc(var(--i)*50ms)}
+@keyframes lt-in{from{opacity:0;transform:translateY(-.8em) rotate(-12deg)}to{opacity:1;transform:none}}
+@keyframes lt-wave{0%,8%,100%{transform:none}4%{transform:translateY(-.22em)}}
+@keyframes lt-hop{50%{transform:translateY(-.25em) rotate(-6deg)}}
+@keyframes dot-pop{0%,10%,100%{transform:none}5%{transform:scale(1.8);filter:drop-shadow(0 0 6px rgba(242,108,79,.9))}}
+.cta-call,.btn.primary{background:linear-gradient(90deg,#F26C4F,#FF9466,#E9476A,#FF7A4D,#F26C4F)!important;background-size:300% 100%!important;animation:cta-flow 5s linear infinite}
+.cta-call:hover,.btn.primary:hover{animation-duration:1.6s}
+@keyframes cta-flow{from{background-position:0% 50%}to{background-position:300% 50%}}
+@media (prefers-reduced-motion:reduce){.logo .lt,.logo .dot,.cta-call,.btn.primary{animation:none!important}}
 </style>
 </head>
 <body>
@@ -307,7 +322,7 @@ footer a:hover{color:var(--cream)}
 <div class="intro mono" id="intro" aria-hidden="true"><span>© 2026</span><span>Portfolio</span></div>
 
 <div class="bar">
-  <a class="logo groovy" href="#hero" aria-label="Rakib Roman, back to top">ROMAN<span style="color:var(--accent)">.</span></a>
+  <a class="logo groovy" href="#hero" aria-label="Rakib Roman, back to top"><span class="lt" style="--i:0">R</span><span class="lt" style="--i:1">O</span><span class="lt" style="--i:2">M</span><span class="lt" style="--i:3">A</span><span class="lt" style="--i:4">N</span><span class="dot">.</span></a>
   <div class="bar-r"><a class="cta-call" href="https://calendar.google.com/calendar/appointments/schedules/AcZssZ10Mi1H9epubZRMdXI0sblYjD7VobuTcaRJnacYdAAHItwXSMPSRf7RNJ_CG5tDgmvj1FH93PRf" target="_blank" rel="noopener">Book a Strategy Call <span aria-hidden="true">→</span></a><button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="menu"><span id="menuLabel">MENU</span><i aria-hidden="true">⋮</i></button></div>
 </div>
 <nav class="menu" id="menu" aria-label="Main">
