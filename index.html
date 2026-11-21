@@ -79,6 +79,7 @@ img,svg,canvas{display:block;max-width:100%}
 .reel .ri{position:absolute;right:8px;bottom:60px;display:grid;gap:9px}
 .reel .ri i{width:20px;height:20px;border-radius:50%;background:rgba(255,255,255,.25)}
 .reel .rm{position:absolute;left:10px;bottom:12px;font-size:9px;opacity:.8}
+.reel .rn{position:absolute;left:10px;top:10px;font-family:var(--mono);font-size:8px;letter-spacing:.14em;text-transform:uppercase;padding:3px 7px;border-radius:999px;background:rgba(0,0,0,.45);backdrop-filter:blur(4px)}
 .reel::after{content:"";position:absolute;left:0;bottom:0;height:2px;width:var(--pr);background:var(--cream)}
 .shade{position:absolute;inset:0;background:radial-gradient(60% 70% at 62% 55%,rgba(5,5,5,.1),rgba(5,5,5,.72) 80%),linear-gradient(180deg,rgba(5,5,5,.75),transparent 25%,transparent 60%,#050505 98%)}
 .halo{position:absolute;right:12%;bottom:-10%;width:min(70vh,640px);aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,rgba(242,108,79,.75),rgba(242,108,79,.25) 45%,transparent 70%);filter:blur(10px)}
@@ -482,11 +483,12 @@ footer a:hover{color:var(--cream)}
   /* hero reel wall. Replace with your screenshots, e.g. ['reels/1.jpg','reels/2.jpg', ...] */
   var REEL_IMAGES=[];
   var demo=[
-    ['#F26C4F','#4a160b','Stop scrolling.','Your feed needs this'],['#3b5a8a','#0b1220','POV:','you fixed your ROAS'],
-    ['#d9b38c','#4a3220','New drop','is live'],['#5f7f4b','#152010','Organic.','Delivered.'],
-    ['#8a5aa0','#1d1022','Book your','free trial'],['#c94d3a','#2a0c07','3 reasons','to switch'],
-    ['#444','#0d0d0d','Heavy trucks.','Heavy tires.'],['#e08a3c','#3a1a06','Before','vs after'],
-    ['#2f7f80','#08201f','Your home,','cleaned right'],['#b04a6a','#2a0d17','Last chance:','40% off']
+    ['#d9541e','#3a1206','Crispy. Hot.','Ready in 15 min','Restaurant'],['#3a3a3a','#0e0e0e','Winter drop','is live','Apparel'],
+    ['#c43c2c','#2a0a06','First class','is free','Gym'],['#e8b4a0','#5a2f24','Glow in','7 days','Skincare'],
+    ['#7a4a2a','#1e1009','Your morning','just got better','Coffee'],['#2f5f8a','#0a1626','Just listed:','3 bed, 2 bath','Real estate'],
+    ['#4aa3a8','#0b2426','New patient','special','Dental'],['#d8d0c4','#4a4036','Sneakers that','go the distance','Footwear'],
+    ['#2f7f60','#08201a','Spotless home,','zero stress','Cleaning'],['#555048','#121110','Winter tires','in stock','Auto'],
+    ['#e0a040','#3a2408','Treats your','dog will beg for','Pet'],['#8a5aa0','#1d1022','Book your','free trial','Kids class']
   ];
   var wall=document.getElementById('reelwall'), cols=window.innerWidth<700?4:7;
   for(var ci=0;ci<cols;ci++){
@@ -495,7 +497,7 @@ footer a:hover{color:var(--cream)}
     for(var rep=0;rep<2;rep++)for(var k=0;k<5;k++){
       var idx=(ci*3+k)%Math.max(REEL_IMAGES.length||demo.length,1);
       if(REEL_IMAGES.length){html+='<div class="reel" style="--pr:'+(20+((ci*k*17)%70))+'%"><img src="'+REEL_IMAGES[idx%REEL_IMAGES.length]+'" alt="" loading="lazy"></div>';}
-      else{var d=demo[idx%demo.length];html+='<div class="reel" style="--bg:radial-gradient(120% 70% at 70% 15%,'+d[0]+','+d[1]+' 70%);--pr:'+(20+((ci*7+k*13)%70))+'%"><div class="ri"><i></i><i></i><i></i></div><p class="rc"><span>'+d[2]+'</span><br><span>'+d[3]+'</span></p><span class="rm">Sponsored</span></div>';}
+      else{var d=demo[idx%demo.length];html+='<div class="reel" style="--bg:radial-gradient(120% 70% at 70% 15%,'+d[0]+','+d[1]+' 70%);--pr:'+(20+((ci*7+k*13)%70))+'%"><div class="ri"><i></i><i></i><i></i></div><p class="rc"><span>'+d[2]+'</span><br><span>'+d[3]+'</span></p><span class="rm">Sponsored</span><span class="rn">'+d[4]+'</span></div>';}
     }
     col.innerHTML=html;wall.appendChild(col);
   }
