@@ -149,8 +149,15 @@ img,svg,canvas{display:block;max-width:100%}
 #say p{font-family:var(--serif);font-style:italic;font-size:clamp(22px,2.4vw,34px);color:var(--accent);margin-top:28px}
 
 /* 2 showreel */
-#say{--h:180vh}
-#say .stage{padding:0}
+#say{height:auto!important}
+#say .stage{position:relative;height:auto;min-height:0;padding:clamp(72px,10vw,140px) 0 clamp(56px,7vw,110px);display:flex;flex-direction:column;align-items:center;gap:clamp(28px,4vw,56px)}
+.reelhead{text-align:center;padding:0 6vw;max-width:1100px}
+.reelhead .mono{display:inline-flex;align-items:center;gap:10px;color:var(--accent)}
+.reelhead .mono i{width:8px;height:8px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 0 rgba(242,108,79,.6);animation:recdot 1.6s infinite}
+@keyframes recdot{0%{box-shadow:0 0 0 0 rgba(242,108,79,.6)}100%{box-shadow:0 0 0 12px rgba(242,108,79,0)}}
+.reelhead h2{font-family:var(--serif);font-weight:400;font-size:clamp(40px,6.4vw,100px);line-height:1;letter-spacing:-.02em;margin-top:18px;text-wrap:balance}
+.reelhead h2 em{color:var(--accent)}
+#say .reelhead p{font-family:inherit;font-style:normal;color:var(--dim);font-size:clamp(15px,1.4vw,19px);line-height:1.55;max-width:640px;margin:18px auto 0;text-wrap:pretty}
 .reelbox{position:relative;width:100vw;aspect-ratio:16/9;max-height:100svh;overflow:hidden;background:#000}
 .reelvid{width:100%;height:100%;object-fit:cover;display:block}
 .snd{position:absolute;right:clamp(12px,2.4vw,32px);bottom:clamp(12px,2.4vw,32px);display:inline-flex;align-items:center;gap:8px;padding:10px 16px;border:0;border-radius:999px;background:rgba(10,10,10,.6);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);color:var(--cream);font:600 13px/1 var(--mono,monospace);letter-spacing:.06em;text-transform:uppercase;cursor:pointer;box-shadow:0 0 0 1px rgba(245,241,232,.18);transition:background .2s,transform .2s}
@@ -158,7 +165,7 @@ img,svg,canvas{display:block;max-width:100%}
 .snd svg{width:18px;height:18px}
 .snd .on{display:none}.snd[aria-pressed="true"] .on{display:inline}.snd[aria-pressed="true"] .off{display:none}
 @media (max-width:700px){.snd{padding:8px 12px;font-size:11px}}
-@media (max-width:900px) and (orientation:portrait){#say{height:auto!important}#say .stage{position:relative;height:auto;min-height:0;padding:72px 0}#light .stage{place-items:start center;padding-top:96px}}
+@media (max-width:900px) and (orientation:portrait){#say .stage{padding:72px 0}#light .stage{place-items:start center;padding-top:96px}}
 /* 3 light curtain */
 #light canvas{position:absolute;inset:0;width:100%;height:100%}
 #light .over{position:relative;text-align:center;padding:0 6vw;mix-blend-mode:normal}
@@ -372,6 +379,11 @@ footer a:hover{color:var(--cream)}
   <!-- 2 · SHOWREEL VIDEO -->
   <section class="scene" id="say">
     <div class="stage">
+      <div class="reelhead">
+        <span class="mono"><i aria-hidden="true"></i>The showreel · 38 sec</span>
+        <h2>38 seconds that <em>stop the scroll.</em></h2>
+        <p>Restaurants, skincare, gyms, real estate. This is what your next ad could feel like. Turn the sound on.</p>
+      </div>
       <div class="reelbox">
         <video class="reelvid" id="reelvid" src="showreel.mp4?v=4" poster="showreel-poster.jpg?v=4" autoplay muted loop playsinline preload="metadata" aria-label="Showreel: Stop the scroll. Story, cut, scale. Video ads by Rakib Roman"></video>
         <button class="snd" id="sndBtn" type="button" aria-pressed="false" aria-label="Turn sound on">
