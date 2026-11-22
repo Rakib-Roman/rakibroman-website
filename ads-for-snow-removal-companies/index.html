@@ -115,7 +115,10 @@ section{padding:96px 0}
 .ads{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
 .ad{display:grid;gap:16px}
 .phone{aspect-ratio:9/16;border-radius:28px;overflow:hidden;position:relative;background:var(--bg);border:6px solid #1a1f27;box-shadow:0 30px 60px rgba(0,0,0,.5)}
-.phone::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 70% 20%,rgba(255,255,255,.18),transparent 50%),repeating-linear-gradient(115deg,transparent 0 30px,rgba(255,255,255,.04) 30px 32px)}
+.phone::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.35),transparent 30%,transparent 50%,rgba(0,0,0,.6))}
+.phone>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.phone::before{z-index:1}
+.phone .tag,.phone .cap,.phone .meta{z-index:2}
 .phone .tag{position:absolute;left:14px;top:14px;font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;background:rgba(0,0,0,.45);padding:4px 9px;border-radius:999px}
 .phone .cap{position:absolute;left:14px;right:14px;bottom:56px;font-weight:800;font-size:20px;line-height:1.15}
 .phone .cap span{background:#fff;color:#111;padding:2px 6px;box-decoration-break:clone;-webkit-box-decoration-break:clone}
@@ -261,19 +264,19 @@ footer a:hover{color:var(--accent)}
       </div>
       <div class="ads">
         <article class="ad">
-          <div class="phone" style="--bg:linear-gradient(180deg,#24384d,#0b121a 70%)"><span class="tag">Homeowners</span><p class="cap"><span>Woke up to this?</span><br><span>We already</span><br><span>cleared it.</span></p><span class="meta">Sponsored · Get a quote</span></div>
+          <div class="phone" style="--bg:linear-gradient(180deg,#24384d,#0b121a 70%)"><img src="snow-1.webp" alt="" loading="lazy"><span class="tag">Homeowners</span><p class="cap"><span>Woke up to this?</span><br><span>We already</span><br><span>cleared it.</span></p><span class="meta">Sponsored · Get a quote</span></div>
           <h3>The 5 a.m. driveway</h3>
           <p class="hook">Hook: buried driveway → clean in 3 seconds</p>
           <p>A time-lapse of your crew clearing a driveway before sunrise. Sells the feeling of never shoveling again, and pushes seasonal sign-ups.</p>
         </article>
         <article class="ad">
-          <div class="phone" style="--bg:linear-gradient(180deg,#5a2a1e,#140906 70%)"><span class="tag">Early-signup offer</span><p class="cap"><span>Lock in this</span><br><span>winter's price</span><br><span>before the first storm</span></p><span class="meta">Sponsored · Sign up</span></div>
+          <div class="phone" style="--bg:linear-gradient(180deg,#5a2a1e,#140906 70%)"><img src="snow-2.webp" alt="" loading="lazy"><span class="tag">Early-signup offer</span><p class="cap"><span>Lock in this</span><br><span>winter's price</span><br><span>before the first storm</span></p><span class="meta">Sponsored · Sign up</span></div>
           <h3>The fall contract push</h3>
           <p class="hook">Hook: "Prices go up after the first snow"</p>
           <p>Run in September and October. A clear early-signup offer with a deadline, so contracts are booked while competitors are still waiting for snow.</p>
         </article>
         <article class="ad">
-          <div class="phone" style="--bg:linear-gradient(180deg,#2f3b45,#0c1014 70%)"><span class="tag">Property managers</span><p class="cap"><span>Your lot cleared</span><br><span>before the first</span><br><span>car pulls in</span></p><span class="meta">Sponsored · Request a bid</span></div>
+          <div class="phone" style="--bg:linear-gradient(180deg,#2f3b45,#0c1014 70%)"><img src="snow-3.webp" alt="" loading="lazy"><span class="tag">Property managers</span><p class="cap"><span>Your lot cleared</span><br><span>before the first</span><br><span>car pulls in</span></p><span class="meta">Sponsored · Request a bid</span></div>
           <h3>The commercial lot</h3>
           <p class="hook">Hook: empty, clean lot at dawn</p>
           <p>For HOAs, offices and retail. Shows equipment, reliability and response time, the three things a property manager is actually buying.</p>
