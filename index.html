@@ -150,9 +150,14 @@ img,svg,canvas{display:block;max-width:100%}
 
 /* 2 showreel */
 #say{--h:180vh}
-.reelbox{width:min(1200px,92vw);aspect-ratio:16/9;border-radius:24px;overflow:hidden;box-shadow:0 40px 120px rgba(0,0,0,.6),0 0 0 1px rgba(245,241,232,.08);transform:scale(calc(.86 + var(--p,0)*.18));background:#000}
+#say .stage{padding:0}
+.reelbox{position:relative;width:100vw;aspect-ratio:16/9;max-height:100svh;overflow:hidden;background:#000}
 .reelvid{width:100%;height:100%;object-fit:cover;display:block}
-@media (max-width:700px){.reelbox{border-radius:16px}}
+.snd{position:absolute;right:clamp(12px,2.4vw,32px);bottom:clamp(12px,2.4vw,32px);display:inline-flex;align-items:center;gap:8px;padding:10px 16px;border:0;border-radius:999px;background:rgba(10,10,10,.6);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);color:var(--cream);font:600 13px/1 var(--mono,monospace);letter-spacing:.06em;text-transform:uppercase;cursor:pointer;box-shadow:0 0 0 1px rgba(245,241,232,.18);transition:background .2s,transform .2s}
+.snd:hover{background:rgba(242,108,79,.9);color:#1a0b06;transform:translateY(-2px)}
+.snd svg{width:18px;height:18px}
+.snd .on{display:none}.snd[aria-pressed="true"] .on{display:inline}.snd[aria-pressed="true"] .off{display:none}
+@media (max-width:700px){.snd{padding:8px 12px;font-size:11px}}
 /* 3 light curtain */
 #light canvas{position:absolute;inset:0;width:100%;height:100%}
 #light .over{position:relative;text-align:center;padding:0 6vw;mix-blend-mode:normal}
@@ -367,7 +372,12 @@ footer a:hover{color:var(--cream)}
   <section class="scene" id="say">
     <div class="stage">
       <div class="reelbox">
-        <video class="reelvid" src="showreel.mp4" poster="showreel-poster.jpg" autoplay muted loop playsinline preload="metadata" aria-label="Showreel: I stop thumbs. Story, cut, scale. Video ads by Rakib Roman"></video>
+        <video class="reelvid" id="reelvid" src="showreel.mp4?v=4" poster="showreel-poster.jpg?v=4" autoplay muted loop playsinline preload="metadata" aria-label="Showreel: Stop the scroll. Story, cut, scale. Video ads by Rakib Roman"></video>
+        <button class="snd" id="sndBtn" type="button" aria-pressed="false" aria-label="Turn sound on">
+          <svg class="off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H2v6h4l5 4V5z"/><path d="m23 9-6 6M17 9l6 6"/></svg>
+          <svg class="on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H2v6h4l5 4V5z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M19 5a10 10 0 0 1 0 14"/></svg>
+          <span class="off">Tap for sound</span><span class="on">Sound on</span>
+        </button>
       </div>
     </div>
   </section>
@@ -725,6 +735,19 @@ footer a:hover{color:var(--cream)}
   function next(){ var st=styles[n++%styles.length]; if(!document.hidden) st[0](); setTimeout(next,st[1]+1800); }
   setTimeout(next,2300);
   logo.addEventListener('mouseenter',function(){if(!dot.getAnimations().length) next();});
+})();
+</script>
+<script>
+/* showreel: sound toggle + pause when off screen */
+(function(){
+  var v=document.getElementById('reelvid'), b=document.getElementById('sndBtn'); if(!v||!b) return;
+  b.addEventListener('click',function(){
+    v.muted=!v.muted; if(!v.muted){ v.volume=1; if(v.currentTime>1) v.currentTime=0; v.play(); }
+    b.setAttribute('aria-pressed',String(!v.muted)); b.setAttribute('aria-label',v.muted?'Turn sound on':'Turn sound off');
+  });
+  if('IntersectionObserver' in window){
+    new IntersectionObserver(function(es){es.forEach(function(e){ if(e.isIntersecting&&e.intersectionRatio>.35){var p=v.play(); if(p&&p.catch)p.catch(function(){});} else v.pause(); });},{threshold:[0,.35,.6]}).observe(v);
+  }
 })();
 </script>
 </body>
