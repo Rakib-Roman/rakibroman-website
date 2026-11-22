@@ -312,10 +312,12 @@ footer a:hover{color:var(--cream)}
 @keyframes lt-wave{0%,8%,100%{transform:none}4%{transform:translateY(-.22em)}}
 @keyframes lt-hop{50%{transform:translateY(-.25em) rotate(-6deg)}}
 @keyframes dot-pop{0%,10%,100%{transform:none}5%{transform:scale(1.8);filter:drop-shadow(0 0 6px rgba(242,108,79,.9))}}
-.cta-call,.btn.primary{background:linear-gradient(90deg,#F26C4F,#FF9466,#E9476A,#FF7A4D,#F26C4F)!important;background-size:300% 100%!important;animation:cta-flow 5s linear infinite}
-.cta-call:hover,.btn.primary:hover{animation-duration:1.6s}
-@keyframes cta-flow{from{background-position:0% 50%}to{background-position:300% 50%}}
-@media (prefers-reduced-motion:reduce){.logo .lt,.logo .dot,.cta-call,.btn.primary{animation:none!important}}
+.cta-call,.btn.primary{position:relative;overflow:hidden;isolation:isolate;background:#F26C4F!important;animation:cta-glow 5s ease-in-out 2.6s infinite}
+.cta-call::after,.btn.primary::after{content:"";position:absolute;inset:-2px;z-index:-1;pointer-events:none;background:linear-gradient(100deg,transparent 30%,rgba(255,227,216,.0) 38%,rgba(255,240,234,.85) 50%,rgba(255,227,216,0) 62%,transparent 70%);background-size:250% 100%;background-position:150% 0;animation:cta-sheen 5s ease-in-out 2.6s infinite}
+.cta-call:hover::after,.btn.primary:hover::after{animation-duration:1.4s;animation-delay:0s}
+@keyframes cta-sheen{0%{background-position:150% 0}18%,100%{background-position:-50% 0}}
+@keyframes cta-glow{0%,18%,100%{box-shadow:0 8px 30px rgba(242,108,79,.35)}8%{box-shadow:0 8px 34px rgba(255,170,140,.75),0 0 0 1px rgba(255,227,216,.5)}}
+@media (prefers-reduced-motion:reduce){.logo .lt,.logo .dot,.cta-call,.btn.primary,.cta-call::after,.btn.primary::after{animation:none!important}}
 </style>
 </head>
 <body>
