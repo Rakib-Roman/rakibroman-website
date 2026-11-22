@@ -658,12 +658,12 @@ footer a:hover{color:var(--cream)}
     lts.forEach(function(l){var r=l.getBoundingClientRect();pts.push([r.left+r.width/2-dc,top]);});
     pts.push([0,0]);
     var seg=pts.length-1, segT=[0.30,0.16,0.16,0.16,0.16,0.26], tot=0; segT.forEach(function(x){tot+=x});
-    var D=1900, kf=[], t=0, lands=[];
+    var D=3200, kf=[], t=0, lands=[];
     for(var i=0;i<seg;i++){
       var a=pts[i], b=pts[i+1], h=(i===0?0.95:i===seg-1?0.55:0.42)*fs, st=t/tot, en=(t+segT[i])/tot;
-      kf.push({offset:st,transform:'translate('+a[0]+'px,'+a[1]+'px) scale(1.15,.8)',easing:'ease-out'});
-      kf.push({offset:st+(en-st)*0.12,transform:'translate('+a[0]+'px,'+a[1]+'px) scale(.9,1.15)',easing:'ease-out'});
-      kf.push({offset:(st+en)/2,transform:'translate('+(a[0]+b[0])/2+'px,'+(Math.min(a[1],b[1])-h)+'px) scale(1)',easing:'ease-in'});
+      kf.push({offset:st,transform:'translate('+a[0]+'px,'+a[1]+'px) scale(1.08,.9)',easing:'cubic-bezier(.33,0,.4,1)'});
+      kf.push({offset:st+(en-st)*0.12,transform:'translate('+a[0]+'px,'+a[1]+'px) scale(.96,1.06)',easing:'cubic-bezier(.2,.6,.35,1)'});
+      kf.push({offset:(st+en)/2,transform:'translate('+(a[0]+b[0])/2+'px,'+(Math.min(a[1],b[1])-h)+'px) scale(1)',easing:'cubic-bezier(.55,0,.75,.45)'});
       t+=segT[i]; if(i<seg-1) lands.push(t/tot*D);
     }
     kf.push({offset:1,transform:'translate(0,0) scale(1)'});
@@ -671,11 +671,11 @@ footer a:hover{color:var(--cream)}
     dot.animate(kf,{duration:D});
     lands.forEach(function(ms,i){
       setTimeout(function(){
-        lts[i].animate([{transform:'none'},{transform:'translateY(.06em) scale(1.1,.82)',offset:.35},{transform:'translateY(-.04em) scale(.97,1.04)',offset:.7},{transform:'none'}],{duration:320,easing:'ease-out'});
+        lts[i].animate([{transform:'none'},{transform:'translateY(.04em) scale(1.05,.9)',offset:.3},{transform:'translateY(-.02em) scale(.99,1.02)',offset:.65},{transform:'none'}],{duration:600,easing:'ease-in-out'});
       },ms);
     });
   }
-  setTimeout(function(){run();setInterval(run,5500);},2300);
+  setTimeout(function(){run();setInterval(run,7000);},2300);
   logo.addEventListener('mouseenter',function(){if(!dot.getAnimations().length) run();});
 })();
 </script>
