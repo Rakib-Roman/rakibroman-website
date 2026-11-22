@@ -305,8 +305,8 @@ footer a:hover{color:var(--cream)}
   .card{position:relative;opacity:1;transform:none;margin-bottom:60px}
   #svc .stack{height:auto}
 }
-.logo .lt{display:inline-block;animation:lt-in .7s cubic-bezier(.2,.9,.3,1.4) both,lt-wave 7s ease-in-out infinite;animation-delay:calc(1s + var(--i)*80ms),calc(3s + var(--i)*90ms)}
-.logo .dot{color:#F26C4F;display:inline-block;animation:lt-in .7s cubic-bezier(.2,.9,.3,1.4) both,dot-pop 7s ease-in-out infinite;animation-delay:1.45s,3.5s}
+.logo .lt{display:inline-block;transform-origin:50% 100%;animation:lt-in .7s cubic-bezier(.2,.9,.3,1.4) both;animation-delay:calc(1s + var(--i)*80ms)}
+.logo .dot{color:#F26C4F;display:inline-block;position:relative;z-index:2;animation:lt-in .7s cubic-bezier(.2,.9,.3,1.4) both;animation-delay:1.45s}
 .logo:hover .lt{animation:lt-hop .5s ease both;animation-delay:calc(var(--i)*50ms)}
 @keyframes lt-in{from{opacity:0;transform:translateY(-.8em) rotate(-12deg)}to{opacity:1;transform:none}}
 @keyframes lt-wave{0%,8%,100%{transform:none}4%{transform:translateY(-.22em)}}
@@ -643,6 +643,40 @@ footer a:hover{color:var(--cream)}
   var cur=document.querySelector('.cursor');
   addEventListener('mousemove',function(e){cur.style.left=e.clientX+'px';cur.style.top=e.clientY+'px';});
   document.querySelectorAll('a,button,.wc').forEach(function(el){el.addEventListener('mouseenter',function(){cur.classList.add('big')});el.addEventListener('mouseleave',function(){cur.classList.remove('big')});});
+})();
+</script>
+<script>
+/* ROMAN. logo: the dot hops across every letter, then lands back home */
+(function(){
+  var logo=document.querySelector('.logo'); if(!logo||!logo.animate) return;
+  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var dot=logo.querySelector('.dot'), lts=[].slice.call(logo.querySelectorAll('.lt'));
+  function run(){
+    if(document.hidden) return;
+    var fs=parseFloat(getComputedStyle(logo).fontSize), d=dot.getBoundingClientRect(), dc=d.left+d.width/2;
+    var top=-0.66*fs, pts=[[0,0]];
+    lts.forEach(function(l){var r=l.getBoundingClientRect();pts.push([r.left+r.width/2-dc,top]);});
+    pts.push([0,0]);
+    var seg=pts.length-1, segT=[0.30,0.16,0.16,0.16,0.16,0.26], tot=0; segT.forEach(function(x){tot+=x});
+    var D=1900, kf=[], t=0, lands=[];
+    for(var i=0;i<seg;i++){
+      var a=pts[i], b=pts[i+1], h=(i===0?0.95:i===seg-1?0.55:0.42)*fs, st=t/tot, en=(t+segT[i])/tot;
+      kf.push({offset:st,transform:'translate('+a[0]+'px,'+a[1]+'px) scale(1.15,.8)',easing:'ease-out'});
+      kf.push({offset:st+(en-st)*0.12,transform:'translate('+a[0]+'px,'+a[1]+'px) scale(.9,1.15)',easing:'ease-out'});
+      kf.push({offset:(st+en)/2,transform:'translate('+(a[0]+b[0])/2+'px,'+(Math.min(a[1],b[1])-h)+'px) scale(1)',easing:'ease-in'});
+      t+=segT[i]; if(i<seg-1) lands.push(t/tot*D);
+    }
+    kf.push({offset:1,transform:'translate(0,0) scale(1)'});
+    kf[0].transform='translate(0,0) scale(1)';
+    dot.animate(kf,{duration:D});
+    lands.forEach(function(ms,i){
+      setTimeout(function(){
+        lts[i].animate([{transform:'none'},{transform:'translateY(.06em) scale(1.1,.82)',offset:.35},{transform:'translateY(-.04em) scale(.97,1.04)',offset:.7},{transform:'none'}],{duration:320,easing:'ease-out'});
+      },ms);
+    });
+  }
+  setTimeout(function(){run();setInterval(run,5500);},2300);
+  logo.addEventListener('mouseenter',function(){if(!dot.getAnimations().length) run();});
 })();
 </script>
 </body>
